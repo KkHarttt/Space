@@ -1,0 +1,46 @@
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("=== МАТЕМАТИЧЕСКИЙ АНАЛИЗ ЧИСЕЛ ===");
+
+        Console.Write("Введите количество чисел: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+
+        if (n <= 0)
+        {
+            Console.WriteLine("Количество чисел должно быть больше нуля.");
+            return;
+        }
+
+        double sum = 0;
+        double min = double.MaxValue;
+        double max = double.MinValue;
+
+        for (int i = 1; i <= n; i++)
+        {
+            Console.Write("Введите число " + i + ": ");
+            double number = Convert.ToDouble(Console.ReadLine());
+
+            sum += number;
+
+            if (number > max)
+                max = number;
+
+            if (number < min)
+                min = number;
+        }
+
+        double average = sum / n;
+
+        Console.WriteLine("\n=== РЕЗУЛЬТАТЫ ===");
+        Console.WriteLine("Количество чисел: " + n);
+        Console.WriteLine("Сумма: " + sum);
+        Console.WriteLine("Среднее арифметическое: " + average);
+        Console.WriteLine("Максимальное число: " + max);
+        Console.WriteLine("Минимальное число: " + min);
+    }
+}

@@ -1,0 +1,50 @@
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("=== РЕШЕНИЕ КВАДРАТНОГО УРАВНЕНИЯ ===");
+
+        Console.Write("Введите коэффициент a: ");
+        double a = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Введите коэффициент b: ");
+        double b = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Введите коэффициент c: ");
+        double c = Convert.ToDouble(Console.ReadLine());
+
+        if (a == 0)
+        {
+            Console.WriteLine("Ошибка: коэффициент a не должен быть равен нулю.");
+            return;
+        }
+
+        double D = b * b - 4 * a * c;
+
+        Console.WriteLine("\nДискриминант D = " + D);
+
+        if (D > 0)
+        {
+            double x1 = (-b + Math.Sqrt(D)) / (2 * a);
+            double x2 = (-b - Math.Sqrt(D)) / (2 * a);
+
+            Console.WriteLine("Уравнение имеет два корня:");
+            Console.WriteLine("x1 = " + x1);
+            Console.WriteLine("x2 = " + x2);
+        }
+        else if (D == 0)
+        {
+            double x = -b / (2 * a);
+
+            Console.WriteLine("Уравнение имеет один корень:");
+            Console.WriteLine("x = " + x);
+        }
+        else
+        {
+            Console.WriteLine("Действительных корней нет.");
+        }
+    }
+}
