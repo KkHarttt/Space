@@ -1,0 +1,86 @@
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("=== КАЛЬКУЛЯТОР ОБЪЕМА ФИГУР ===");
+        Console.WriteLine("Выберите геометрическую фигуру:");
+        Console.WriteLine("1. Куб");
+        Console.WriteLine("2. Прямоугольный параллелепипед");
+        Console.WriteLine("3. Цилиндр");
+        Console.WriteLine("4. Шар");
+        Console.WriteLine("5. Конус");
+
+        Console.Write("\nВаш выбор: ");
+        int choice = Convert.ToInt32(Console.ReadLine());
+
+        double volume = 0;
+
+        switch (choice)
+        {
+            case 1:
+                Console.Write("Введите длину ребра куба: ");
+                double a = Convert.ToDouble(Console.ReadLine());
+                volume = Math.Pow(a, 3);
+                break;
+
+            case 2:
+                Console.Write("Введите длину: ");
+                double length = Convert.ToDouble(Console.ReadLine());
+
+                Console.Write("Введите ширину: ");
+                double width = Convert.ToDouble(Console.ReadLine());
+
+                Console.Write("Введите высоту: ");
+                double height = Convert.ToDouble(Console.ReadLine());
+
+                volume = length * width * height;
+                break;
+
+            case 3:
+                Console.Write("Введите радиус основания: ");
+                double radius = Convert.ToDouble(Console.ReadLine());
+
+                Console.Write("Введите высоту цилиндра: ");
+                double cylinderHeight = Convert.ToDouble(Console.ReadLine());
+
+                volume = Math.PI * Math.Pow(radius, 2) * cylinderHeight;
+                break;
+
+            case 4:
+                Console.Write("Введите радиус шара: ");
+                double sphereRadius = Convert.ToDouble(Console.ReadLine());
+
+                volume = (4.0 / 3.0) * Math.PI *
+                         Math.Pow(sphereRadius, 3);
+                break;
+
+            case 5:
+                Console.Write("Введите радиус основания: ");
+                double coneRadius = Convert.ToDouble(Console.ReadLine());
+
+                Console.Write("Введите высоту конуса: ");
+                double coneHeight = Convert.ToDouble(Console.ReadLine());
+
+                volume = (Math.PI * Math.Pow(coneRadius, 2) *
+                          coneHeight) / 3;
+                break;
+
+            default:
+                Console.WriteLine("Ошибка! Такого пункта нет.");
+                return;
+        }
+
+        if (volume <= 0)
+        {
+            Console.WriteLine("Ошибка! Размеры должны быть положительными.");
+            return;
+        }
+
+        Console.WriteLine("\n------------------------------");
+        Console.WriteLine("Объем фигуры: " + volume.ToString("F2"));
+        Console.WriteLine("------------------------------");
+    }
+}

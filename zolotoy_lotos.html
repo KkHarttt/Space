@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Золотой Лотос — ресторан китайской кухни. Традиционные вкусы, свежие ингредиенты и тёплое гостеприимство.">
+  <title>Золотой Лотос — ресторан китайской кухни</title>
+  <style>
+    :root {
+      --green: #123f32;
+      --green-2: #1d5b46;
+      --green-light: #e8f0e9;
+      --gold: #d9ad55;
+      --gold-light: #f2dca7;
+      --cream: #fbf7ee;
+      --paper: #fffdf8;
+      --ink: #24332c;
+      --muted: #69756d;
+      --shadow: 0 18px 45px rgba(24, 54, 41, .12);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(1140px, calc(100% - 40px)); margin-inline: auto; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--green-2); font-size: .78rem; font-weight: 800;
+      letter-spacing: .16em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--gold); }
+    .section { padding: 96px 0; }
+    .section-heading { max-width: 680px; margin: 0 auto 42px; text-align: center; }
+    .section-heading .eyebrow { justify-content: center; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { line-height: 1.12; }
+    h2 { font-size: clamp(2rem, 4vw, 3.1rem); margin: 14px 0 16px; color: var(--green); letter-spacing: -.04em; }
+    .section-heading p { color: var(--muted); margin: 0 auto; max-width: 580px; }
+
+    /* Навигация закреплена сверху */
+    .site-header {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(18, 63, 50, .96); color: #fffdf8;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 24px rgba(10, 35, 26, .13);
+    }
+    .nav-wrap { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.03em; font-size: 1.18rem; white-space: nowrap; }
+    .brand-mark {
+      display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
+      border: 1px solid var(--gold); color: var(--gold-light); font-size: 1.35rem;
+      box-shadow: inset 0 0 0 4px rgba(217,173,85,.12);
+    }
+    .nav-links { display: flex; align-items: center; gap: clamp(14px, 2.2vw, 28px); }
+    .nav-links a { color: rgba(255,255,255,.85); font-size: .9rem; font-weight: 600; transition: color .25s ease; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--gold-light); }
+    .nav-cta { padding: 11px 17px; border-radius: 999px; background: var(--gold); color: #203b2f !important; }
+    .nav-cta:hover { background: var(--gold-light); }
+    .menu-toggle {
+      display: none; border: 1px solid rgba(255,255,255,.3); color: white; background: transparent;
+      border-radius: 12px; width: 44px; height: 42px; font-size: 1.35rem; cursor: pointer;
+    }
+
+    /* Первый экран */
+    .hero {
+      min-height: 680px; display: flex; align-items: center; position: relative; overflow: hidden;
+      color: white; background:
+        radial-gradient(ellipse at 78% 40%, rgba(217,173,85,.23), transparent 35%),
+        linear-gradient(115deg, rgba(9,35,27,.96) 0%, rgba(18,63,50,.88) 53%, rgba(18,63,50,.55) 100%),
+        repeating-linear-gradient(135deg, #1b5b45 0 2px, #174b3b 2px 4px);
+    }
+    .hero::before, .hero::after { content: ""; position: absolute; border: 1px solid rgba(242,220,167,.2); border-radius: 50%; pointer-events: none; }
+    .hero::before { width: 560px; height: 560px; right: -100px; top: 50px; box-shadow: 0 0 0 35px rgba(242,220,167,.035), 0 0 0 70px rgba(242,220,167,.025); }
+    .hero::after { width: 360px; height: 360px; right: 0; top: 150px; }
+    .hero-content { position: relative; z-index: 1; max-width: 710px; padding: 88px 0 100px; }
+    .hero .eyebrow { color: var(--gold-light); }
+    .hero h1 { font-size: clamp(3.1rem, 7.5vw, 6.2rem); letter-spacing: -.065em; margin: 20px 0 24px; }
+    .hero h1 span { color: var(--gold); font-family: Georgia, serif; font-style: italic; font-weight: 500; }
+    .hero p { max-width: 570px; font-size: clamp(1rem, 1.6vw, 1.2rem); color: rgba(255,255,255,.8); margin-bottom: 32px; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 50px; padding: 14px 23px; border-radius: 999px; font-weight: 800;
+      border: 1px solid transparent; transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-primary { background: var(--gold); color: #1d382c; box-shadow: 0 9px 24px rgba(217,173,85,.2); }
+    .btn-primary:hover { background: var(--gold-light); box-shadow: 0 14px 28px rgba(217,173,85,.28); }
+    .btn-outline { color: white; border-color: rgba(255,255,255,.35); background: rgba(255,255,255,.04); }
+    .btn-outline:hover { background: rgba(255,255,255,.12); }
+    .hero-note { display: flex; align-items: center; gap: 12px; margin-top: 44px; color: rgba(255,255,255,.72); font-size: .9rem; }
+    .hero-note strong { color: var(--gold-light); }
+    .hero-note .stars { color: var(--gold); letter-spacing: 2px; }
+
+    /* О ресторане */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(35px, 7vw, 90px); }
+    .about-art {
+      min-height: 440px; border-radius: 28px; position: relative; overflow: hidden;
+      background: linear-gradient(145deg, #d9ad55, #f3dfae 42%, #1c5945 42%, #103b2e);
+      box-shadow: var(--shadow);
+    }
+    .about-art::before {
+      content: "蓮"; position: absolute; inset: 0; display: grid; place-items: center;
+      color: rgba(255,255,255,.78); font-family: Georgia, serif; font-size: clamp(9rem, 20vw, 16rem);
+      text-shadow: 0 10px 35px rgba(17,55,41,.15);
+    }
+    .about-art::after { content: ""; position: absolute; inset: 22px; border: 1px solid rgba(255,255,255,.55); border-radius: 19px; }
+    .art-caption { position: absolute; z-index: 2; left: 28px; bottom: 28px; padding: 14px 18px; border-radius: 14px; background: rgba(255,253,248,.94); color: var(--green); font-weight: 800; }
+    .about-copy h2 { margin-top: 14px; }
+    .about-copy p { color: var(--muted); }
+    .values { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+    .value { border-left: 3px solid var(--gold); padding: 3px 0 3px 14px; }
+    .value strong { display: block; color: var(--green); margin-bottom: 3px; }
+    .value span { color: var(--muted); font-size: .9rem; }
+
+    /* Карточки блюд */
+    .menu-section { background: var(--paper); }
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .dish-card {
+      overflow: hidden; border-radius: var(--radius); background: white; border: 1px solid #eee8dc;
+      box-shadow: 0 8px 24px rgba(24,54,41,.045);
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    }
+    .dish-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); border-color: rgba(217,173,85,.7); }
+    .dish-art { height: 185px; display: grid; place-items: center; position: relative; overflow: hidden; background: var(--green-light); }
+    .dish-art::before { content: ""; position: absolute; width: 170px; height: 170px; border-radius: 50%; background: rgba(255,255,255,.7); }
+    .dish-art span { position: relative; z-index: 1; font-size: 5.4rem; filter: drop-shadow(0 12px 8px rgba(32,44,35,.15)); transition: transform .35s ease; }
+    .dish-card:hover .dish-art span { transform: scale(1.12) rotate(-5deg); }
+    .dish-art.gold { background: #f6e8c7; }
+    .dish-art.rose { background: #f4dfd5; }
+    .dish-art.mint { background: #dcebe0; }
+    .dish-art.sand { background: #eee5d5; }
+    .dish-art.peach { background: #f4e1c8; }
+    .dish-info { padding: 21px 22px 23px; }
+    .dish-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .dish-info h3 { color: var(--green); font-size: 1.18rem; margin: 0 0 9px; }
+    .price { color: #986c1d; font-weight: 900; white-space: nowrap; }
+    .dish-info p { color: var(--muted); font-size: .91rem; margin: 0; }
+    .menu-footnote { margin: 28px 0 0; text-align: center; color: var(--muted); font-size: .88rem; }
+
+    /* Акции */
+    .offers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .offer-card { position: relative; padding: 29px; min-height: 245px; border-radius: var(--radius); overflow: hidden; background: var(--green); color: white; }
+    .offer-card:nth-child(2) { background: #e9d4a2; color: var(--green); }
+    .offer-card:nth-child(3) { background: #e6eee5; color: var(--green); }
+    .offer-card::after { content: ""; position: absolute; width: 150px; height: 150px; right: -38px; bottom: -50px; border: 1px solid currentColor; border-radius: 50%; opacity: .17; box-shadow: 0 0 0 18px transparent, 0 0 0 19px currentColor; }
+    .offer-tag { display: inline-block; padding: 6px 10px; border-radius: 999px; font-size: .75rem; font-weight: 900; letter-spacing: .05em; text-transform: uppercase; background: rgba(255,255,255,.14); }
+    .offer-card:nth-child(2) .offer-tag, .offer-card:nth-child(3) .offer-tag { background: rgba(18,63,50,.09); }
+    .offer-card h3 { font-size: 1.55rem; margin: 19px 0 10px; max-width: 240px; }
+    .offer-card p { max-width: 270px; opacity: .82; margin-bottom: 0; font-size: .94rem; }
+    .offer-big { position: absolute; right: 22px; top: 50px; font-size: 2.7rem; font-weight: 900; color: var(--gold-light); opacity: .95; }
+    .offer-card:nth-child(2) .offer-big, .offer-card:nth-child(3) .offer-big { color: var(--green); }
+
+    /* Лояльность */
+    .loyalty-section { background: #e9efe8; }
+    .loyalty-wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 55px; align-items: center; }
+    .loyalty-panel { padding: 34px; border-radius: 28px; background: var(--green); color: white; box-shadow: var(--shadow); }
+    .loyalty-panel .lotus { font-size: 3.5rem; color: var(--gold); }
+    .loyalty-panel h3 { font-size: 1.8rem; margin: 10px 0; }
+    .loyalty-panel p { color: rgba(255,255,255,.76); margin-bottom: 0; }
+    .loyalty-steps { display: grid; gap: 22px; }
+    .step { display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start; }
+    .step-number { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 15px; background: var(--gold-light); color: var(--green); font-weight: 900; }
+    .step h3 { font-size: 1.1rem; color: var(--green); margin: 2px 0 5px; }
+    .step p { color: var(--muted); font-size: .94rem; margin: 0; }
+
+    /* Контакты */
+    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 26px; }
+    .contact-card { padding: 30px; border-radius: var(--radius); background: white; border: 1px solid #eee8dc; }
+    .contact-card h3 { color: var(--green); font-size: 1.35rem; margin-bottom: 23px; }
+    .contact-row { display: grid; grid-template-columns: 42px 1fr; gap: 13px; margin: 18px 0; }
+    .contact-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: var(--green-light); font-size: 1.15rem; }
+    .contact-row strong { display: block; color: var(--green); margin-bottom: 2px; }
+    .contact-row span, .contact-row a { color: var(--muted); font-size: .94rem; }
+    .map-placeholder {
+      min-height: 330px; border-radius: var(--radius); overflow: hidden; position: relative; display: grid; place-items: center;
+      background-color: #dce8dc;
+      background-image: linear-gradient(35deg, transparent 46%, rgba(255,255,255,.85) 47%, rgba(255,255,255,.85) 50%, transparent 51%),
+        linear-gradient(120deg, transparent 42%, rgba(255,255,255,.8) 43%, rgba(255,255,255,.8) 46%, transparent 47%),
+        repeating-linear-gradient(0deg, transparent 0 48px, rgba(18,63,50,.08) 49px 51px),
+        repeating-linear-gradient(90deg, transparent 0 48px, rgba(18,63,50,.08) 49px 51px);
+    }
+    .map-pin { text-align: center; padding: 22px 28px; border-radius: 20px; background: var(--green); color: white; box-shadow: var(--shadow); position: relative; z-index: 1; }
+    .map-pin span { display: block; font-size: 2rem; margin-bottom: 5px; }
+    .map-pin strong { display: block; }
+    .map-pin small { color: var(--gold-light); }
+
+    footer { padding: 28px 0; background: #0e3026; color: rgba(255,255,255,.72); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; font-size: .86rem; }
+    .footer-inner strong { color: white; }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a:hover { color: var(--gold-light); }
+
+    @media (max-width: 900px) {
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: .82rem; }
+      .about-grid, .loyalty-wrap { gap: 35px; }
+      .menu-grid { grid-template-columns: repeat(2, 1fr); }
+      .offers-grid { grid-template-columns: 1fr 1fr; }
+      .offer-card:last-child { grid-column: 1 / -1; min-height: 210px; }
+    }
+    @media (max-width: 700px) {
+      html { scroll-padding-top: 72px; }
+      .container { width: min(100% - 30px, 560px); }
+      .section { padding: 70px 0; }
+      .nav-wrap { min-height: 68px; }
+      .brand { font-size: 1.05rem; }
+      .brand-mark { width: 38px; height: 38px; }
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none; position: absolute; left: 0; right: 0; top: 68px; padding: 16px 22px 22px;
+        background: var(--green); flex-direction: column; align-items: stretch; gap: 0;
+        box-shadow: 0 18px 24px rgba(10,35,26,.2);
+      }
+      .nav-links.is-open { display: flex; }
+      .nav-links a { padding: 12px 5px; font-size: .96rem; border-bottom: 1px solid rgba(255,255,255,.1); }
+      .nav-links .nav-cta { text-align: center; margin-top: 12px; border: 0; }
+      .hero { min-height: 620px; }
+      .hero-content { padding: 76px 0 80px; }
+      .hero::before { width: 360px; height: 360px; right: -190px; top: 180px; }
+      .hero::after { width: 250px; height: 250px; right: -135px; top: 235px; }
+      .hero h1 { font-size: clamp(3rem, 14vw, 4.7rem); }
+      .hero-note { align-items: flex-start; flex-direction: column; gap: 5px; margin-top: 30px; }
+      .about-grid, .loyalty-wrap, .contact-grid { grid-template-columns: 1fr; }
+      .about-art { min-height: 330px; order: 2; }
+      .about-copy { order: 1; }
+      .values { gap: 13px; }
+      .menu-grid, .offers-grid { grid-template-columns: 1fr; }
+      .offer-card:last-child { grid-column: auto; }
+      .dish-art { height: 200px; }
+      .loyalty-wrap { gap: 30px; }
+      .loyalty-panel { padding: 28px; }
+      .map-placeholder { min-height: 260px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 380px) {
+      .container { width: calc(100% - 24px); }
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .btn { width: 100%; }
+      .values { grid-template-columns: 1fr; }
+      .dish-top { flex-direction: column; gap: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="Золотой Лотос — на главную">
+        <span class="brand-mark" aria-hidden="true">蓮</span><span>Золотой Лотос</span>
+      </a>
+      <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="navigation">☰</button>
+      <nav class="nav-links" id="navigation" aria-label="Главная навигация">
+        <a href="#about">О ресторане</a>
+        <a href="#menu">Меню</a>
+        <a href="#offers">Акции</a>
+        <a href="#loyalty">Бонусы</a>
+        <a href="#contacts">Контакты</a>
+        <a class="nav-cta" href="#contacts">Забронировать столик</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <span class="eyebrow">Искусство китайской кухни</span>
+          <h1>Вкус традиций.<br><span>Магия момента.</span></h1>
+          <p>Откройте для себя гармонию ароматных специй, свежих ингредиентов и рецептов, вдохновлённых многовековыми традициями Китая.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#menu">Открыть меню <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-outline" href="#about">Наша история</a>
+          </div>
+          <div class="hero-note"><span class="stars" aria-label="Пять звёзд">★★★★★</span><span><strong>Каждое блюдо — маленькое путешествие</strong> в сердце Китая</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="about-art" role="img" aria-label="Декоративная эмблема лотоса в золотых и изумрудных тонах">
+          <div class="art-caption">Традиции в каждой детали</div>
+        </div>
+        <div class="about-copy">
+          <span class="eyebrow">О ресторане</span>
+          <h2>Восточное гостеприимство — с первого кусочка</h2>
+          <p>«Золотой Лотос» родился из любви к китайской гастрономии и уважения к её богатой культуре. Мы вдохновляемся региональными рецептами, искусством баланса вкусов и философией совместной трапезы.</p>
+          <p>Для нас важно всё: сезонные продукты, точность приготовления, аромат специй и атмосфера, в которой хочется задержаться подольше.</p>
+          <div class="values">
+            <div class="value"><strong>Свежие продукты</strong><span>Отбираем ингредиенты каждый день.</span></div>
+            <div class="value"><strong>Рецепты с душой</strong><span>Классика Востока в нашем исполнении.</span></div>
+            <div class="value"><strong>Баланс вкусов</strong><span>Пряное, сладкое, кислое и умами.</span></div>
+            <div class="value"><strong>Тёплый приём</strong><span>Уютная атмосфера для встреч.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section menu-section" id="menu">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Наши фавориты</span>
+          <h2>Попробуйте вкус Китая</h2>
+          <p>Шесть блюд, с которых приятно начать знакомство с нашей кухней. Выберите любимое — или закажите несколько на общий стол.</p>
+        </div>
+        <div class="menu-grid">
+          <article class="dish-card">
+            <div class="dish-art gold"><span aria-hidden="true">🥟</span></div>
+            <div class="dish-info"><div class="dish-top"><h3>Димсамы с креветкой</h3><span class="price">590 ₽</span></div><p>Нежное тесто, сочная начинка и лёгкий имбирный соус.</p></div>
+          </article>
+          <article class="dish-card">
+            <div class="dish-art rose"><span aria-hidden="true">🍜</span></div>
+            <div class="dish-info"><div class="dish-top"><h3>Лапша вок с говядиной</h3><span class="price">690 ₽</span></div><p>Обжаренная лапша, овощи, говядина и фирменный соус.</p></div>
+          </article>
+          <article class="dish-card">
+            <div class="dish-art mint"><span aria-hidden="true">🍗</span></div>
+            <div class="dish-info"><div class="dish-top"><h3>Курица в кисло-сладком соусе</h3><span class="price">640 ₽</span></div><p>Золотистая корочка, ананас и яркий баланс сладости и кислинки.</p></div>
+          </article>
+          <article class="dish-card">
+            <div class="dish-art sand"><span aria-hidden="true">🥢</span></div>
+            <div class="dish-info"><div class="dish-top"><h3>Свинина по-сычуаньски</h3><span class="price">720 ₽</span></div><p>Пряные специи, ароматный перец и насыщенный вкус.</p></div>
+          </article>
+          <article class="dish-card">
+            <div class="dish-art peach"><span aria-hidden="true">🍚</span></div>
+            <div class="dish-info"><div class="dish-top"><h3>Жареный рис с овощами</h3><span class="price">420 ₽</span></div><p>Рассыпчатый рис, свежие овощи, яйцо и кунжутное масло.</p></div>
+          </article>
+          <article class="dish-card">
+            <div class="dish-art gold"><span aria-hidden="true">🍮</span></div>
+            <div class="dish-info"><div class="dish-top"><h3>Кокосовая панна-котта</h3><span class="price">360 ₽</span></div><p>Нежный кокосовый десерт с манго и лёгкой цитрусовой ноткой.</p></div>
+          </article>
+        </div>
+        <p class="menu-footnote">Цены и состав блюд приведены как пример для макета и могут быть изменены.</p>
+      </div>
+    </section>
+
+    <section class="section" id="offers">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Повод заглянуть</span>
+          <h2>Специально для вас</h2>
+          <p>Небольшие приятности, которые делают встречу за столом ещё лучше.</p>
+        </div>
+        <div class="offers-grid">
+          <article class="offer-card">
+            <span class="offer-tag">Каждый будний день</span><span class="offer-big">−15%</span>
+            <h3>Обед в восточном стиле</h3><p>Скидка 15% на выбранные обеденные комбо с 12:00 до 16:00.</p>
+          </article>
+          <article class="offer-card">
+            <span class="offer-tag">Для компании</span><span class="offer-big">2+1</span>
+            <h3>Больше вкуса — больше радости</h3><p>Закажите две порции димсамов и получите третью в подарок.</p>
+          </article>
+          <article class="offer-card">
+            <span class="offer-tag">Ваш особенный день</span><span class="offer-big">🎁</span>
+            <h3>Праздник с подарком</h3><p>Десерт от шеф-повара имениннику при предъявлении документа.</p>
+          </article>
+        </div>
+        <p class="menu-footnote">Акции демонстрационные. Перед публикацией укажите реальные сроки, условия и ограничения.</p>
+      </div>
+    </section>
+
+    <section class="section loyalty-section" id="loyalty">
+      <div class="container loyalty-wrap">
+        <div class="loyalty-panel">
+          <div class="lotus" aria-hidden="true">蓮</div>
+          <span class="eyebrow" style="color:var(--gold-light)">Клуб «Золотой Лотос»</span>
+          <h3>Каждый визит приносит больше</h3>
+          <p>Присоединяйтесь к программе лояльности и копите бонусы за любимые блюда. Больше встреч — больше приятных привилегий.</p>
+        </div>
+        <div>
+          <span class="eyebrow">Бонусная программа</span>
+          <h2>Ваш вкус вознаграждается</h2>
+          <div class="loyalty-steps">
+            <div class="step"><div class="step-number">01</div><div><h3>Зарегистрируйтесь бесплатно</h3><p>Попросите карту лояльности у сотрудника или зарегистрируйтесь по номеру телефона.</p></div></div>
+            <div class="step"><div class="step-number">02</div><div><h3>Получайте 5% бонусами</h3><p>За каждую покупку начисляются бонусы от суммы чека. Показывайте карту перед оплатой.</p></div></div>
+            <div class="step"><div class="step-number">03</div><div><h3>Оплачивайте часть заказа</h3><p>Используйте накопленные бонусы для оплаты до 30% следующего заказа.</p></div></div>
+            <div class="step"><div class="step-number">04</div><div><h3>Получайте сюрпризы</h3><p>Участникам доступны персональные предложения и приятный бонус ко дню рождения.</p></div></div>
+          </div>
+          <p class="menu-footnote" style="text-align:left">Условия программы в макете приведены для примера. Уточните реальные правила перед запуском.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contacts">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Будем рады встрече</span>
+          <h2>Загляните в гости</h2>
+          <p>Планируете ужин, семейный праздник или встречу с друзьями? Мы поможем сделать её особенной.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h3>Контактная информация</h3>
+            <div class="contact-row"><div class="contact-icon" aria-hidden="true">📍</div><div><strong>Наш адрес</strong><span>г. Москва, ул. Примерная, 18</span></div></div>
+            <div class="contact-row"><div class="contact-icon" aria-hidden="true">🕒</div><div><strong>Часы работы</strong><span>Пн–Вс: 12:00–23:00</span></div></div>
+            <div class="contact-row"><div class="contact-icon" aria-hidden="true">☎</div><div><strong>Позвоните нам</strong><a href="tel:+74951234567">+7 (495) 123-45-67</a></div></div>
+            <div class="contact-row"><div class="contact-icon" aria-hidden="true">✉</div><div><strong>Электронная почта</strong><a href="mailto:hello@goldenlotus.example">hello@goldenlotus.example</a></div></div>
+            <a class="btn btn-primary" href="tel:+74951234567" style="margin-top:12px">Позвонить и забронировать</a>
+          </div>
+          <div class="map-placeholder" role="img" aria-label="Декоративная схема расположения ресторана">
+            <div class="map-pin"><span aria-hidden="true">📍</span><strong>Золотой Лотос</strong><small>Ждём вас в гости</small></div>
+          </div>
+        </div>
+        <p class="menu-footnote">Адрес, телефон, почта и график работы — демонстрационные данные. Замените их на актуальные контакты ресторана.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div><strong>Золотой Лотос</strong> · Ресторан китайской кухни</div>
+      <div>© <span id="year">2026</span> Все права защищены</div>
+      <div class="footer-links"><a href="#about">О нас</a><a href="#menu">Меню</a><a href="#contacts">Контакты</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav-links');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Закрыть меню' : 'Открыть меню');
+      toggle.textContent = isOpen ? '✕' : '☰';
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Открыть меню');
+        toggle.textContent = '☰';
+      });
+    });
+
+    document.querySelector('#year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
